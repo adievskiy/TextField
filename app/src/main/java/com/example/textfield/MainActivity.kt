@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -32,7 +34,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DynamicListApp()
+            Surface(Modifier.padding(top = 45.dp)) {
+                DynamicListApp()
+            }
         }
     }
 }
@@ -56,14 +60,18 @@ fun DynamicListApp() {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(onClick = {
-            if (textState.text.isNotBlank()) {
-                items.add(textState.text)
-                textState = TextFieldValue("")
-            }
-        }, modifier = Modifier.fillMaxWidth()) {
-            Text("Добавить")
-        }
+        Text(
+            text = "Добавить",
+            textAlign = TextAlign.Center,
+            fontSize = 22.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = {
+                if (textState.text.isNotBlank()) {
+                    items.add(textState.text)
+                    textState = TextFieldValue("")
+                }
+            }))
 
         Spacer(modifier = Modifier.height(16.dp))
 
